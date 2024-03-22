@@ -215,7 +215,10 @@ def create_event():
 
             # Chenage text to json
             json = response.json()
-            new_event.summary_data = json["completion"]
+
+            formated_data = format_data(json["completion"])
+
+            new_event.summary_data = formated_data
 
         db.session.add(new_event)
         db.session.commit()
@@ -550,3 +553,14 @@ def extract_text_from_pdf(pdf_path):
             page = reader.pages[page_num]
             text += page.extract_text()
     return text
+
+def format_data(data):
+    # Adds a new line after every number in the string
+    formatted_data = ""
+    for char in data:
+        if char.isdigit():
+            formatted_data += "\n" + char 
+        else:
+            formatted_data += char
+
+    return formatted_data

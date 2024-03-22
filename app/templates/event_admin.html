@@ -49,6 +49,11 @@
 
     {% block page_content %}
         <!-- Creates a structured view of an event, displaying its name, description, venue, and an image banner related to the event, -->
+        <style>
+            .preserve-line-breaks{
+                white-space: pre-line;
+            }
+        </style>
         <div class="row">
             <div class="page-header">
                 <div style="text-align: center;">
@@ -60,7 +65,7 @@
             <div>
                 <p style="font-weight: 500; font-size: 1.5em;">{{event.start_date}}</p>
                 <h1>{{event.name}}</h1>
-                <p>{{event.summary_data}}</p>
+                <p class = "preserve-line-breaks">{{event.summary_data}}</p>
                 <p>{{event.short_description}}</p>
 
                 <!-- <div class="event-section">
@@ -75,7 +80,7 @@
                     <p>From: {{event.start_time}} to {{event.end_time}} EST</p>
                 </div> -->
 
-                <div class="event-section">
+                <!-- <div class="event-section">
                     <h4 class="event-section-header">Location</h4>
                     <p>Venue: {{event.venue}}</p>
                 </div>
@@ -112,11 +117,11 @@
                     <form action="/events/delete_event/{{event.id}}" method="POST" onsubmit="return confirmDelete();" style="margin-left: 50px;">
                         <button type="submit" class="btn btn-danger" name="update-action" value="delete">Delete Event</button>
                     </form>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="row" style="margin-top: 2vw;">
-            <div>
+            <!-- <div>
                 <h1>User Analytics</h1>
                 <div class="event-section">
                     <h4 class="event-section-header">Ratings</h4>
@@ -150,7 +155,7 @@
                     </div>
                 </div>
                 {% endif %}    
-            </div>
+            </div> -->
         </div>
 
         <script>
