@@ -31,6 +31,6 @@ PROGRAM_CATEGORIES = ["ECE", "Chemical", "Civil", "Mechanical", "Computer", "Mat
 #FILTERS = ["In-Person", "Today", "Free", *EVENT_CATEGORIES, "Past Events"]
 FILTERS = ["ECE", "Chemical", "Civil", "Mechanical", "Computer", "Materials", "Mineral", "Mining", "EngSci", "Indy", "Other"]
 
-
+API_URL = "https://6klrlabk6g.execute-api.us-west-2.amazonaws.com/default/promptEn"
 DB_NAME = "database.db"
 USE_SIMPLE_SEARCH=True

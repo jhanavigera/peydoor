@@ -86,6 +86,7 @@ class EventDetails(db.Model):
 
     # Data extracted from pdf
     pdf_data = db.Column(db.String(100000))
+    summary_data = db.Column(db.String(100000))
 
     # Ticket Price Information
     ticket_price = db.Column(db.Float)

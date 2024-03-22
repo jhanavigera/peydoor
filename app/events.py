@@ -16,9 +16,11 @@ import logging
 import os.path
 import os
 import PyPDF2
+import requests
+import json
 
 from app.main import db # db is for database
-from app.globals import Role, USE_SIMPLE_SEARCH
+from app.globals import Role, USE_SIMPLE_SEARCH, API_URL
 from app.auth import organizer_required, user_required
 from app.database import Credentials, EventRegistration, EventDetails, EventRating
 from app.forms import EventCreateForm
@@ -186,8 +188,10 @@ def create_event():
             # Add the banner information for the newly created event
             # Get number of events
             num_of_events = len(EventDetails.query.all())
+            # logging.info("Number of events: ", num_of_events, "\n")
             # The new event id will always be one more than the current num of events
             new_event_id = num_of_events + 1
+            # logging.info("New Event ID: ", new_event_id, "\n")
             # Give the file name according to new event id
             filename = "pey_report_" + str(new_event_id) + ".pdf"
             new_event.image = filename
@@ -199,7 +203,19 @@ def create_event():
             )
 
             text = extract_text_from_pdf(file_path)
+            # logging.info("The pdf supplied is: %s", text)
             new_event.pdf_data = text
+            logging.info("The pdf supplied is: %s", text)
+
+            # Get an API call
+            req = {"prompt": "The company culture at Red Hat is deeply rooted in open-source principles, collaboration, and community engagement. There's a strong emphasis on transparency, innovation, and inclusivity, fostering an environment where everyone's contributions are valued regardless of their background or experience. My day-to-day responsibilities involved contributing to open-source projects like ostree and rpm-ostree, fixing bugs, implementing features, and engaging with the open-source community. I also participated in meetings, collaborated with team members, and conducted research to deepen my understanding of the technologies we were using. Yes, I received mentorship during the internship. My mentor guided me through the technical aspects of the projects, provided valuable feedback on my work, and helped me navigate the open-source community dynamics. This mentorship was instrumental in my growth and development throughout the internship. Yes, there was onboarding provided during the internship. I received orientation sessions, access to relevant resources and documentation, and introductions to key team members. This onboarding process helped me quickly acclimate to the company's culture and understand my role within the team. Yes, I felt that my work was impactful and meaningful. Contributing to open-source projects that are widely used in the industry allowed me to make tangible contributions to the community. Additionally, presenting my work at a conference further emphasized the significance of my contributions. I learned transferrable skills such as initiative, leadership, adaptability, effective communication, and project management. These skills are applicable not only in technical roles but also in various other professional settings. I am currently looking for jobs where I can continue to leverage my skills in open-source software development, cloud computing, and Linux system administration. I am particularly interested in roles that offer opportunities for continued learning, growth, and impactful contributions to the technology industry."}
+
+            response = requests.post(API_URL, json=req)
+            logging.info("The response arrived is: %s", response.text)
+
+            # Chenage text to json
+            json = response.json()
+            new_event.summary_data = json["completion"]
 
         db.session.add(new_event)
         db.session.commit()
@@ -525,6 +541,7 @@ def create_ical_event(id):
 
 # PDF reader helper function
 def extract_text_from_pdf(pdf_path):
+    print("Trying to read:", pdf_path)
     text = ""
     with open(pdf_path, 'rb') as file:
         reader = PyPDF2.PdfReader(file)
