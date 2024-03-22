@@ -23,20 +23,13 @@ CAMPUS_CATEGORIES = [
     "Scarborough"
 ]
 
-EVENT_CATEGORIES = ["Academic", "Hobbies", "Music", "Nightlife", "Business"]
+EVENT_CATEGORIES = ["Ece", "Chemical", "Civil", "Mechanical", "Computer", "Materials", "Mineral", "Mining", "Engsci", "Indy", "Other"]
 PROGRAM_CATEGORIES = ["ECE", "Chemical", "Civil", "Mechanical", "Computer", "Materials", "Mineral", "Mining", "EngSci", "Indy", "Other"]
 # List of tags that can be used to sort the event data
 # NOTE: Do not add a tag named "clear", since it has a special functionality
 # --- prev filters: 
 #FILTERS = ["In-Person", "Today", "Free", *EVENT_CATEGORIES, "Past Events"]
-FILTERS = ["Chemical Engineering", 
-    "Civil Engineering", 
-    "Electrical and Computer Engineering", 
-    "Industrial Engineering", 
-    "Materials Engineering",
-    "Mechanical Engineering", 
-    "Mineral Engineering", 
-    "Engineering Science"]
+FILTERS = ["ECE", "Chemical", "Civil", "Mechanical", "Computer", "Materials", "Mineral", "Mining", "EngSci", "Indy", "Other"]
 
 
 DB_NAME = "database.db"

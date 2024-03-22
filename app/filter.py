@@ -80,11 +80,3 @@ def filter_for_past_events(events):
         for event_id in events.keys() 
         if (events[event_id]["start_date"] < date.today().strftime('%Y-%m-%d')) or (events[event_id]["start_date"] == date.today().strftime('%Y-%m-%d') and events[event_id]["start_time"] < datetime.now().strftime("%H:%M:%S"))
     }
-
-
-def filter_for_department(events):
-    return { 
-        event_id: events[event_id] 
-        for event_id in events.keys() 
-        if float(events[event_id]["ticket_price"]) == 0.0
-    }

@@ -28,24 +28,26 @@ def main(filter="all", search=None):
         dict_of_events_details = filter_events_on_event_ids_list(events=dict_of_events_details, event_ids=list_event_ids)
 
     # Filter the events list based on the filter tags
-    if filter == "in-person":
-        dict_of_events_details = filter_for_inperson_events(events=dict_of_events_details)
-    elif filter == "free":
-        dict_of_events_details = filter_for_free_events(events=dict_of_events_details)
-    elif filter == "today":
-        dict_of_events_details = filter_for_today_events(events=dict_of_events_details)
-    elif filter == "past events":
-        dict_of_events_details =  filter_for_past_events(events=dict_of_events_details)
-    elif filter == "Chemical Engineering" or "Civil Engineering" or "Electrical and Computer Engineering" or "Industrial Engineering" or "Materials Engineering" or "Mechanical Engineering" or "Mineral Engineering" or "Engineering Science":
-        dict_of_events_details =  filter_for_past_events(events=dict_of_events_details)
-    elif filter != "all":
+    #if filter == "in-person":
+    #    dict_of_events_details = filter_for_inperson_events(events=dict_of_events_details)
+    #elif filter == "free":
+    #    dict_of_events_details = filter_for_free_events(events=dict_of_events_details)
+    #elif filter == "today":
+    #    dict_of_events_details = filter_for_today_events(events=dict_of_events_details)
+    #elif filter == "past events":
+    #    dict_of_events_details =  filter_for_past_events(events=dict_of_events_details)
+        
+    if filter == "Ece" or filter == "Chemical" or filter == "Civil" or filter == "Mechanical" or filter == "Computer" or filter == "Materials" or filter == "Mineral" or filter == "Mining" or filter == "Engsci" or filter == "Indy" or filter == "Other":
+       dict_of_events_details =  filter_events_on_category(events=dict_of_events_details, category=filter)
+    """elif filter != "all":
         if filter.capitalize() not in EVENT_CATEGORIES:
             abort(404, description = {
                 "type": "invalid_filter",
                 "caller": "user.main",
                 "message": f"Invalid filter category {filter}"
             })
-        dict_of_events_details = filter_events_on_category(events=dict_of_events_details, category=filter)
+        dict_of_events_details = filter_events_on_category(events=dict_of_events_details, category=filter)"""
+    dict_of_events_details =  filter_events_on_category(events=dict_of_events_details, category=filter)
 
     return render_template("user_events.html", event_data=dict_of_events_details, search=search, filter=filter, filter_tags=FILTERS)
 
