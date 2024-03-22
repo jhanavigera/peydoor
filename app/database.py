@@ -84,6 +84,9 @@ class EventDetails(db.Model):
     max_capacity = db.Column(db.Integer)
     current_capacity = db.Column(db.Integer)
 
+    # Data extracted from pdf
+    pdf_data = db.Column(db.String(100000))
+
     # Ticket Price Information
     ticket_price = db.Column(db.Float)
 

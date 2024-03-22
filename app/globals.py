@@ -31,6 +31,7 @@ CAMPUS_CATEGORIES = [
 ]
 
 EVENT_CATEGORIES = ["Academic", "Hobbies", "Music", "Nightlife", "Business"]
+PROGRAM_CATEGORIES = ["ECE", "Chemical", "Civil", "Mechanical", "Computer", "Materials", "Mineral", "Mining", "EngSci", "Indy", "Other"]
 # List of tags that can be used to sort the event data
 # NOTE: Do not add a tag named "clear", since it has a special functionality
 FILTERS = ["In-Person", "Today", "Free", *EVENT_CATEGORIES, "Past Events"]
