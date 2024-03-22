@@ -19,6 +19,7 @@ from wtforms.validators import DataRequired, NumberRange, Email, Length
 
 from app.globals import (
     Role, 
+    PROGRAM_CATEGORIES,
     EVENT_CATEGORIES, 
     YEAR_CATEGORIES, 
     COURSE_CATEGORIES,
@@ -46,39 +47,39 @@ class RegForm(FlaskForm):
 
 
 class EventCreateForm(FlaskForm):
-    name = StringField("Name*:", validators=[DataRequired()])
+    name = StringField("Name of company*:", validators=[DataRequired()])
     short_description = StringField("Short Description* (Max 90 characters):", validators=[DataRequired(), Length(max=90, message="Please keep the description under 90 characters")])
-    long_description = StringField("Long Description (Optional):")
+    # long_description = StringField("Long Description (Optional):")
     category = SelectField(
-        "Category:", 
-        choices=EVENT_CATEGORIES, 
+        "Program:", 
+        choices=PROGRAM_CATEGORIES, 
         validators=[DataRequired()]
     )
 
     # Location and Time information
-    is_online = BooleanField("Is this an online event?")
-    venue = StringField("Venue:")
+    # is_online = BooleanField("Is this an online event?")
+    # venue = StringField("Venue:")
     start_date = DateField("Start Date*:")
     end_date = DateField("End Date*:")
-    start_time = TimeField("Start Time*:")
-    end_time = TimeField("End Time*:")
+    # start_time = TimeField("Start Time*:")
+    # end_time = TimeField("End Time*:")
 
     # Participant capacity information
-    max_capacity = IntegerField(
-        "Capacity of the event:", validators=[NumberRange(min=0)])
+    # max_capacity = IntegerField(
+    #     "Capacity of the event:", validators=[NumberRange(min=0)])
 
     # Ticket Price Information
-    ticket_price = FloatField("Ticket Price:", default=0.0, validators=[NumberRange(min=0.0)])
+    # ticket_price = FloatField("Ticket Price:", default=0.0, validators=[NumberRange(min=0.0)])
 
     # Additional informations
-    redirect_link = URLField("External Registration Link (Optional) :")
+    # redirect_link = URLField("External Registration Link (Optional) :")
     banner_image = FileField(
-        "Image:", validators=[FileAllowed(["png"], "Please upload a PNG image.")]
+        "PEY Report:", validators=[FileAllowed(["pdf"], "Please upload a PDF image.")]
     )
-    additional_info = TextAreaField("Additional Information:")
+    # additional_info = TextAreaField("Additional Information:")
     
-    # Tags
-    tags = StringField('Tags (Comma-separated)')
+    # # Tags
+    # tags = StringField('Tags (Comma-separated)')
 
     submit = SubmitField("Submit")
 

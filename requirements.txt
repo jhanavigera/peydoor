@@ -41,3 +41,4 @@ WTForms==3.0.1
 flask_cors==4.0.0
 icalendar==5.0.11
 gunicorn==21.2.0
+PyPDF2==3.0.1

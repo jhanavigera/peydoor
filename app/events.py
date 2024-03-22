@@ -15,6 +15,7 @@ from datetime import datetime
 import logging
 import os.path
 import os
+import PyPDF2
 
 from app.main import db # db is for database
 from app.globals import Role, USE_SIMPLE_SEARCH
@@ -156,20 +157,20 @@ def create_event():
         new_event = EventDetails(
             name=form.name.data,
             short_description=form.short_description.data,
-            long_description=form.long_description.data,
+            # long_description=form.long_description.data,
             category=form.category.data.lower(),
             organizer=current_user.username,
-            is_online=form.is_online.data,
-            venue=form.venue.data,
+            #is_online=form.is_online.data,
+            #venue=form.venue.data,
             start_date=form.start_date.data,
             end_date=form.end_date.data,
-            start_time=form.start_time.data,
-            end_time=form.end_time.data,
-            max_capacity=form.max_capacity.data,
-            current_capacity=0,
-            ticket_price=form.ticket_price.data,
-            redirect_link=form.redirect_link.data,
-            additional_info=form.additional_info.data,
+            #start_time=form.start_time.data,
+            #end_time=form.end_time.data,
+            #max_capacity=form.max_capacity.data,
+            #current_capacity=0,
+            #ticket_price=form.ticket_price.data,
+            #redirect_link=form.redirect_link.data,
+            #additional_info=form.additional_info.data,
         )
 
         banner_file = form.banner_image.data
@@ -177,9 +178,10 @@ def create_event():
         # If an image is not supplied save a place holder
         if "FileStorage: ''" in str(banner_file):
             logging.info("Adding a default image")
-            new_event.image = "placeholder.png"
+            new_event.image = "placeholder.pdf"
         else:
-            logging.info("The image supplied is: %s", banner_file)
+            logging.info("The pdf supplied is: %s", banner_file)
+            print("The pdf supplied is: %s", banner_file)
             
             # Add the banner information for the newly created event
             # Get number of events
@@ -187,13 +189,17 @@ def create_event():
             # The new event id will always be one more than the current num of events
             new_event_id = num_of_events + 1
             # Give the file name according to new event id
-            filename = "event_banner_" + str(new_event_id) + ".png"
+            filename = "pey_report_" + str(new_event_id) + ".pdf"
             new_event.image = filename
 
             # Save the banner in static/event-assets
+            file_path = os.path.join(current_app.root_path, "static", "event-assets", filename)
             banner_file.save(
-                os.path.join(current_app.root_path, "static", "event-assets", filename)
+                file_path
             )
+
+            text = extract_text_from_pdf(file_path)
+            new_event.pdf_data = text
 
         db.session.add(new_event)
         db.session.commit()
@@ -516,3 +522,14 @@ def create_ical_event(id):
             "caller": "create_ical_event",
             "message": "Can not add the event to calendar since the event does not exist"
         })
+
+# PDF reader helper function
+def extract_text_from_pdf(pdf_path):
+    text = ""
+    with open(pdf_path, 'rb') as file:
+        reader = PyPDF2.PdfReader(file)
+        num_pages = len(reader.pages)
+        for page_num in range(num_pages):
+            page = reader.pages[page_num]
+            text += page.extract_text()
+    return text
