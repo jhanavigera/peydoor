@@ -36,7 +36,7 @@ class LoginForm(FlaskForm):
 class RegForm(FlaskForm):
     role = SelectField(
         "Role:",
-        choices=[(Role.USER.value, "User"), (Role.ORGANIZER.value, "Organizer")],
+        choices=[(Role.USER.value, "User"), (Role.ORGANIZER.value, "Contributor")],
         validators=[DataRequired()],
     )
     name = StringField("Name:", validators=[DataRequired()])
