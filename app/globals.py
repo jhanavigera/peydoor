@@ -8,22 +8,15 @@ class Role(Enum):
 YEAR_CATEGORIES = ["1", "2", "3", "PEY", "4", "5", "Other"]
 COURSE_CATEGORIES = ["Undergraduate", "Masters", "PhD", "Faculty"]
 DEPARTMENT_CATEGORIES = [
-    "Applied science and engineering",
-    "Medicine",
-    "Arts and science",
-    "Information",
-    "Dentistry",
-    "Education",
-    "Continuing Studies",
-    "Architechture landscape and design",
-    "Law",
-    "Management",
-    "Music",
-    "Nursing",
-    "Pharmacy",
-    "Public Health",
-    "Social work",
-    "Kinesiology and physical education"]
+    "Chemical Engineering", 
+    "Civil Engineering", 
+    "Electrical and Computer Engineering", 
+    "Industrial Engineering", 
+    "Materials Engineering",
+    "Mechanical Engineering", 
+    "Mineral Engineering", 
+    "Engineering Science"
+    ]
 CAMPUS_CATEGORIES = [
     "St George",
     "Mississauga",
@@ -33,7 +26,17 @@ CAMPUS_CATEGORIES = [
 EVENT_CATEGORIES = ["Academic", "Hobbies", "Music", "Nightlife", "Business"]
 # List of tags that can be used to sort the event data
 # NOTE: Do not add a tag named "clear", since it has a special functionality
-FILTERS = ["In-Person", "Today", "Free", *EVENT_CATEGORIES, "Past Events"]
+# --- prev filters: 
+#FILTERS = ["In-Person", "Today", "Free", *EVENT_CATEGORIES, "Past Events"]
+FILTERS = ["Chemical Engineering", 
+    "Civil Engineering", 
+    "Electrical and Computer Engineering", 
+    "Industrial Engineering", 
+    "Materials Engineering",
+    "Mechanical Engineering", 
+    "Mineral Engineering", 
+    "Engineering Science"]
+
 
 DB_NAME = "database.db"
 USE_SIMPLE_SEARCH=True

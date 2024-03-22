@@ -84,7 +84,7 @@ UserDetails(<ins>username</ins>, campus, degree, year, department, sex)
 - UserDetails[campus] = {'UTSG', 'UTSC', 'UTM'}
 - UserDetails[degree] = {'UG', 'M', 'PG'}; undergrad, master and postgrad respectively
 - UserDetails[year] = {'1', '2', '3', '4', 'PEY', '5'}; 5 is for post grads in their fifth year or repeat students
-- UserDetails[department] = {'Engineering', 'Arts And Science', 'Rotman'}; Others can be added later
+- UserDetails[department] = {'Chemical Engineering', 'Civil Engineering', 'Electrical and Computer Engineering', 'Industrial Engineering', 'Materials Engineering', 'Mechanical Engineering', 'Mineral Engineering', 'Engineering Science'}; Others can be added later
 - UserDetails[sex] = {'M', 'F'}
 - EventDetails[bannerID] \<subset\> EventGraphicsBucket[bannerID]
 - EventDetails[eventType] = {'online', 'in-person', 'hybrid'}

@@ -36,6 +36,8 @@ def main(filter="all", search=None):
         dict_of_events_details = filter_for_today_events(events=dict_of_events_details)
     elif filter == "past events":
         dict_of_events_details =  filter_for_past_events(events=dict_of_events_details)
+    elif filter == "Chemical Engineering" or "Civil Engineering" or "Electrical and Computer Engineering" or "Industrial Engineering" or "Materials Engineering" or "Mechanical Engineering" or "Mineral Engineering" or "Engineering Science":
+        dict_of_events_details =  filter_for_past_events(events=dict_of_events_details)
     elif filter != "all":
         if filter.capitalize() not in EVENT_CATEGORIES:
             abort(404, description = {
