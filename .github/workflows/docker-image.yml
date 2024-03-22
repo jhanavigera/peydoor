@@ -30,7 +30,7 @@ jobs:
         echo "Sleeping for 45 seconds"
         sleep 45
         docker ps -a
-        if curl -s http://localhost:5000/ | grep "Login to UofT Event"
+        if curl -s http://localhost:5000/ | grep "Login to UofT PEY"
           then
             echo "Login page detected. PR can be merged!"
           else
