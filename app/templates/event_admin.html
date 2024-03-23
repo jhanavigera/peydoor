@@ -109,15 +109,16 @@
                     <p>Venue: {{event.additional_info}}</p>
                 </div>
                 {% endif %}
+                -->
     
                 <div class="event-section" style="display: flex;">
                     <form action="/events/edit_event/{{event.id}}" method="GET">
-                        <button type="submit" class="btn btn-primary" name="update-action" value="update">Edit Event</button>
+                        <button type="submit" class="btn btn-primary" name="update-action" value="update">Edit PEY Feedback</button>
                     </form>
                     <form action="/events/delete_event/{{event.id}}" method="POST" onsubmit="return confirmDelete();" style="margin-left: 50px;">
-                        <button type="submit" class="btn btn-danger" name="update-action" value="delete">Delete Event</button>
+                        <button type="submit" class="btn btn-danger" name="update-action" value="delete">Delete PEY Feedback</button>
                     </form>
-                </div> -->
+                </div>
             </div>
         </div>
         <div class="row" style="margin-top: 2vw;">

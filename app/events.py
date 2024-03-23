@@ -175,15 +175,16 @@ def create_event():
             #additional_info=form.additional_info.data,
         )
 
+        pdf_report_file = form.pdf_report_file.data
         banner_file = form.banner_image.data
 
         # If an image is not supplied save a place holder
-        if "FileStorage: ''" in str(banner_file):
+        if "FileStorage: ''" in str(pdf_report_file):
             logging.info("Adding a default image")
-            new_event.image = "placeholder.pdf"
+            new_event.image = "placeholder.png"
         else:
-            logging.info("The pdf supplied is: %s", banner_file)
-            print("The pdf supplied is: %s", banner_file)
+            logging.info("The pdf supplied is: %s", pdf_report_file)
+            print("The pdf supplied is: %s", pdf_report_file)
             
             # Add the banner information for the newly created event
             # Get number of events
@@ -194,13 +195,19 @@ def create_event():
             # logging.info("New Event ID: ", new_event_id, "\n")
             # Give the file name according to new event id
             filename = "pey_report_" + str(new_event_id) + ".pdf"
-            new_event.image = filename
 
-            # Save the banner in static/event-assets
+            # Save the pdf in static/event-assets
             file_path = os.path.join(current_app.root_path, "static", "event-assets", filename)
-            banner_file.save(
+            pdf_report_file.save(
                 file_path
             )
+
+            banner_filename = "event_banner_" + str(new_event_id) + ".png"
+            banner_file_path = os.path.join(current_app.root_path, "static", "event-assets", banner_filename)
+            banner_file.save(
+                banner_file_path
+            )
+            new_event.image = banner_filename
 
             text = extract_text_from_pdf(file_path)
             # logging.info("The pdf supplied is: %s", text)
@@ -208,7 +215,7 @@ def create_event():
             logging.info("The pdf supplied is: %s", text)
 
             # Get an API call
-            req = {"prompt": "The company culture at Red Hat is deeply rooted in open-source principles, collaboration, and community engagement. There's a strong emphasis on transparency, innovation, and inclusivity, fostering an environment where everyone's contributions are valued regardless of their background or experience. My day-to-day responsibilities involved contributing to open-source projects like ostree and rpm-ostree, fixing bugs, implementing features, and engaging with the open-source community. I also participated in meetings, collaborated with team members, and conducted research to deepen my understanding of the technologies we were using. Yes, I received mentorship during the internship. My mentor guided me through the technical aspects of the projects, provided valuable feedback on my work, and helped me navigate the open-source community dynamics. This mentorship was instrumental in my growth and development throughout the internship. Yes, there was onboarding provided during the internship. I received orientation sessions, access to relevant resources and documentation, and introductions to key team members. This onboarding process helped me quickly acclimate to the company's culture and understand my role within the team. Yes, I felt that my work was impactful and meaningful. Contributing to open-source projects that are widely used in the industry allowed me to make tangible contributions to the community. Additionally, presenting my work at a conference further emphasized the significance of my contributions. I learned transferrable skills such as initiative, leadership, adaptability, effective communication, and project management. These skills are applicable not only in technical roles but also in various other professional settings. I am currently looking for jobs where I can continue to leverage my skills in open-source software development, cloud computing, and Linux system administration. I am particularly interested in roles that offer opportunities for continued learning, growth, and impactful contributions to the technology industry."}
+            req = {"prompt": text}
 
             response = requests.post(API_URL, json=req)
             logging.info("The response arrived is: %s", response.text)
@@ -270,14 +277,14 @@ def edit_event(id):
         # Add the event details
         event.name = form.name.data
         event.short_description = form.short_description.data
-        event.long_description = form.long_description.data
+        # event.long_description = form.long_description.data
         event.category = form.category.data.lower()
-        event.is_online = form.is_online.data
-        event.venue = form.venue.data
+        # event.is_online = form.is_online.data
+        # event.venue = form.venue.data
         event.start_date = form.start_date.data
         event.end_date = form.end_date.data
-        event.start_time = form.start_time.data
-        event.end_time = form.end_time.data
+        # event.start_time = form.start_time.data
+        # event.end_time = form.end_time.data
         # TODO: Add a check to prevent the max capacity from being set to below the current capacity
         event.max_capacity = form.max_capacity.data
         event.ticket_price = form.ticket_price.data

@@ -74,6 +74,9 @@ class EventCreateForm(FlaskForm):
     # Additional informations
     # redirect_link = URLField("External Registration Link (Optional) :")
     banner_image = FileField(
+        "Company logo:", validators=[FileAllowed(["png", "jpg"], "Please upload an image.")]
+    )
+    pdf_report_file = FileField(
         "PEY Report:", validators=[FileAllowed(["pdf"], "Please upload a PDF image.")]
     )
     # additional_info = TextAreaField("Additional Information:")
